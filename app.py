@@ -38,6 +38,22 @@ def get_product():
     except Exception as e:
         return f"An Error Occured: {e}"
 
+@app.route('/orders', methods=['POST'])
+@cross_origin()
+def create_order():
+    """
+        create() : Add document to Firestore collection with request body.
+        Ensure you pass a custom ID as part of json body in post request,
+    """
+    try:
+        now = datetime.now()
+        id = int(datetime.timestamp(now))
+        id = str(id)
+        order_ref.document(id).set(request.json)
+        return jsonify({"success": True}), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
 port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
     app.run(threaded=True, host='0.0.0.0', port=port)
