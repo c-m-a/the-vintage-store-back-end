@@ -2,7 +2,6 @@
 
 # Required imports
 import random
-import os
 from datetime import datetime
 from flask_cors import CORS, cross_origin
 from flask import Flask, request, jsonify
@@ -53,8 +52,4 @@ def create_order():
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
-
-port = int(os.environ.get('PORT', 8080))
-if __name__ == '__main__':
-    app.run(threaded=True, host='0.0.0.0', port=port)
 
